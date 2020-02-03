@@ -53,9 +53,9 @@ INCLUDEPATH += /opt/cuda/include
 DEPENDPATH += /opt/cuda/include
 
 #Caffe
-unix:!macx: LIBS += -L/usr/local/lib64/ -lcaffe
-INCLUDEPATH += /usr/local/include
-DEPENDPATH += /usr/local/include
+unix:!macx: LIBS += -L/usr/lib/ -lcaffe
+INCLUDEPATH += /usr/include
+DEPENDPATH += /usr/include
 
 unix:!macx: LIBS += -L/usr/lib/ -lboost_system
 INCLUDEPATH += /usr/include
@@ -68,3 +68,7 @@ DEPENDPATH += /usr/include
 unix:!macx: LIBS += -L/usr/lib/ -lprotobuf
 INCLUDEPATH += /usr/include
 DEPENDPATH += /usr/include
+
+#OpenCV
+INCLUDEPATH += /usr/include/opencv4/
+
