@@ -20,7 +20,10 @@ void OrientationFixer::fix()
     if (this->input.imgSkeletonInverted.cols > 0 && this->input.imgSkeletonInverted.rows > 0) {
         this->fixBifurcations();
     }
-    emit this->extractionErrorSignal(21);
+    else{
+        emit this->extractionErrorSignal(21);
+    }
+
 }
 
 void OrientationFixer::finalizeDirections(QVector<MINUTIA> &minutiae)
