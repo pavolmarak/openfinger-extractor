@@ -23,7 +23,7 @@ typedef struct extraction_results {
     unsigned char * minutiaeISO;
 } EXTRACTION_RESULTS;
 
-class EXTRACTIONSHARED_EXPORT Extraction : public QThread
+class EXTRACTIONSHARED_EXPORT Extraction : public QObject
 {
     Q_OBJECT
 
@@ -35,7 +35,7 @@ public:
     int loadInput(PREPROCESSING_RESULTS preprocessingResults);
     int loadInput(QMap<QString, PREPROCESSING_RESULTS> preprocessingResults);
 
-    void run();
+    void start();
 
     // OPTIONAL
     int setExtractionParams(CAFFE_FILES extractionFiles, int extractionBlockSize);

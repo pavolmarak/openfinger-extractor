@@ -166,7 +166,7 @@ int Extraction::loadInput(QMap<QString, PREPROCESSING_RESULTS> preprocessingResu
     return 1;
 }
 
-void Extraction::run()
+void Extraction::start()
 {
     if (!this->extractionIsRunning) {
         this->extractionIsRunning = true;
