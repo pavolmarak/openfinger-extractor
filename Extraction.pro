@@ -22,6 +22,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+DEFINES += PRO_PWD=\\\"$$_PRO_FILE_PWD_\\\"
+
 QMAKE_CFLAGS_ISYSTEM=
 
 SOURCES += \
@@ -47,28 +49,52 @@ unix {
     INSTALLS += target
 }
 
-#CUDA
-unix:!macx: LIBS += -L/opt/cuda/lib64/ -lcudart
-INCLUDEPATH += /opt/cuda/include
-DEPENDPATH += /opt/cuda/include
+#-----------------------------------------------------------
 
-#Caffe
-unix:!macx: LIBS += -L/usr/lib/ -lcaffe
+#CUDA - Debian
+unix:!macx: LIBS += -L/usr/local/cuda/lib64/ -lcudart
+INCLUDEPATH += /usr/local/cuda/include
+DEPENDPATH += /usr/local/cuda/include
+
+#CUDA - Manjaro
+#unix:!macx: LIBS += -L/opt/cuda/lib64/ -lcudart
+#INCLUDEPATH += /opt/cuda/include
+#DEPENDPATH += /opt/cuda/include
+
+#-----------------------------------------------------------
+
+#Caffe - Debian
+unix:!macx: LIBS += -L/usr/local/lib -lcaffe
+INCLUDEPATH += /usr/local/include
+DEPENDPATH += /usr/local/include
+
+#Caffe - Manjaro
+#unix:!macx: LIBS += -L/usr/lib -lcaffe
+#INCLUDEPATH += /usr/include
+#DEPENDPATH += /usr/include
+
+#-----------------------------------------------------------
+
+# glog, protobuf, boost - Debian
+unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lglog
+unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lprotobuf
+unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lboost_system
 INCLUDEPATH += /usr/include
 DEPENDPATH += /usr/include
 
-unix:!macx: LIBS += -L/usr/lib/ -lboost_system
-INCLUDEPATH += /usr/include
-DEPENDPATH += /usr/include
+# glog, protobuf, boost - Manjaro
+#unix:!macx: LIBS += -L/usr/lib/ -lglog
+#unix:!macx: LIBS += -L/usr/lib/ -lprotobuf
+#unix:!macx: LIBS += -L/usr/lib/ -lboost_system
+#INCLUDEPATH += /usr/include
+#DEPENDPATH += /usr/include
 
-unix:!macx: LIBS += -L/usr/lib/ -lglog
-INCLUDEPATH += /usr/include
-DEPENDPATH += /usr/include
+#-----------------------------------------------------------
 
-unix:!macx: LIBS += -L/usr/lib/ -lprotobuf
-INCLUDEPATH += /usr/include
-DEPENDPATH += /usr/include
-
-#OpenCV
+#OpenCV - Debian
 INCLUDEPATH += /usr/include/opencv4/
 
+#OpenCV - Manjaro
+#INCLUDEPATH += /usr/include/opencv4/
+
+#-----------------------------------------------------------
