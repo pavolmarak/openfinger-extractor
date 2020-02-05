@@ -43,6 +43,10 @@ public:
     int setCPUOnly(bool enabled);
 
 
+    EXTRACTION_DURATIONS getDurations() const;
+
+    EXTRACTION_RESULTS getResults() const;
+
 private:
     CrossingNumber crossingNumber;
     OrientationFixer orientationFixer;

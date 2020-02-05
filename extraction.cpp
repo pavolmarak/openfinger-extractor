@@ -100,6 +100,16 @@ int Extraction::setCPUOnly(bool enabled)
     return 1;
 }
 
+EXTRACTION_DURATIONS Extraction::getDurations() const
+{
+    return durations;
+}
+
+EXTRACTION_RESULTS Extraction::getResults() const
+{
+    return results;
+}
+
 int Extraction::loadInput(cv::Mat imgOriginal, cv::Mat imgSkeleton, cv::Mat orientationMap, int fpQuality, cv::Mat qualityMap, cv::Mat imgSkeletonInverted)
 {
     if (this->extractionIsRunning) {
