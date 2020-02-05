@@ -2,6 +2,17 @@
 ! Await great changes to happen
 ```
 
+**Import notice:**
+
+Minutia direction definition: 
+  * ridge ending - pointing inside the ridge
+  * rifge bifurcation - pointing in the direction of two branches
+
+Minutia location definition: 
+  * ANSI/NIST-ITL 1-2011: X (from left to right), Y (from bottom to top)
+  * ANSI INCITS 378/ISO-IEC 19794-2: X (from left to right), Y (from top to bottom)
+
+
 # Extraction
 Fingerprint extraction module for DBOX  
   
