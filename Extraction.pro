@@ -49,52 +49,49 @@ unix {
     INSTALLS += target
 }
 
-#-----------------------------------------------------------
+CONFIG += manjaro
+#CONFIG += debian
 
-#CUDA - Debian
-unix:!macx: LIBS += -L/usr/local/cuda/lib64/ -lcudart
-INCLUDEPATH += /usr/local/cuda/include
-DEPENDPATH += /usr/local/cuda/include
+debian {
+    #CUDA - Debian
+    unix:!macx: LIBS += -L/usr/local/cuda/lib64/ -lcudart
+    INCLUDEPATH += /usr/local/cuda/include
+    DEPENDPATH += /usr/local/cuda/include
 
-#CUDA - Manjaro
-#unix:!macx: LIBS += -L/opt/cuda/lib64/ -lcudart
-#INCLUDEPATH += /opt/cuda/include
-#DEPENDPATH += /opt/cuda/include
+    #Caffe - Debian (built from source)
+    unix:!macx: LIBS += -L/usr/local/lib -lcaffe
+    INCLUDEPATH += /usr/local/include
+    DEPENDPATH += /usr/local/include
 
-#-----------------------------------------------------------
+    #glog, protobuf, boost - Debian (as a package)
+    unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lglog
+    unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lprotobuf
+    unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lboost_system
+    INCLUDEPATH += /usr/include
+    DEPENDPATH += /usr/include
 
-#Caffe - Debian
-unix:!macx: LIBS += -L/usr/local/lib -lcaffe
-INCLUDEPATH += /usr/local/include
-DEPENDPATH += /usr/local/include
+    #OpenCV - Debian (as a package)
+    INCLUDEPATH += /usr/include/opencv4/
+}
 
-#Caffe - Manjaro
-#unix:!macx: LIBS += -L/usr/lib -lcaffe
-#INCLUDEPATH += /usr/include
-#DEPENDPATH += /usr/include
+manjaro {
+    #CUDA - Manjaro
+    unix:!macx: LIBS += -L/opt/cuda/lib64/ -lcudart
+    INCLUDEPATH += /opt/cuda/include
+    DEPENDPATH += /opt/cuda/include
 
-#-----------------------------------------------------------
+    #Caffe - Manjaro (as a package)
+    unix:!macx: LIBS += -L/usr/lib -lcaffe
+    INCLUDEPATH += /usr/include
+    DEPENDPATH += /usr/include
 
-# glog, protobuf, boost - Debian
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lglog
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lprotobuf
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -lboost_system
-INCLUDEPATH += /usr/include
-DEPENDPATH += /usr/include
+    #glog, protobuf, boost - Manjaro (as a package)
+    unix:!macx: LIBS += -L/usr/lib/ -lglog
+    unix:!macx: LIBS += -L/usr/lib/ -lprotobuf
+    unix:!macx: LIBS += -L/usr/lib/ -lboost_system
+    INCLUDEPATH += /usr/include
+    DEPENDPATH += /usr/include
 
-# glog, protobuf, boost - Manjaro
-#unix:!macx: LIBS += -L/usr/lib/ -lglog
-#unix:!macx: LIBS += -L/usr/lib/ -lprotobuf
-#unix:!macx: LIBS += -L/usr/lib/ -lboost_system
-#INCLUDEPATH += /usr/include
-#DEPENDPATH += /usr/include
-
-#-----------------------------------------------------------
-
-#OpenCV - Debian
-INCLUDEPATH += /usr/include/opencv4/
-
-#OpenCV - Manjaro
-#INCLUDEPATH += /usr/include/opencv4/
-
-#-----------------------------------------------------------
+    #OpenCV - Manjaro (as a package)
+    INCLUDEPATH += /usr/include/opencv4/
+}
