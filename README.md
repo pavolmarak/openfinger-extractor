@@ -2,7 +2,7 @@
 ! Await great changes to happen
 ```
 
-**Import notice:**
+**Important notice:**
 
 Minutia direction definition: 
   * ridge ending - pointing inside the ridge
