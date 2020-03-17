@@ -61,10 +61,10 @@ manjaro {
     INCLUDEPATH += /opt/cuda/include
     DEPENDPATH += /opt/cuda/include
 
-    #Caffe - Manjaro (as a package)
-    unix:!macx: LIBS += -L/usr/lib -lcaffe
-    INCLUDEPATH += /usr/include
-    DEPENDPATH += /usr/include
+    #Caffe - Manjaro (built from source)
+    unix:!macx: LIBS += -L/usr/local/lib -lcaffe
+    INCLUDEPATH += /usr/local/include
+    DEPENDPATH += /usr/local/include
 
     #glog, protobuf, boost - Manjaro (as a package)
     unix:!macx: LIBS += -L/usr/lib/ -lglog
