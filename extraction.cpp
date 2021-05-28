@@ -58,6 +58,32 @@ void Extraction::cleanDurations()
     this->durations.isoConverter = 0;
 }
 
+cv::Mat Extraction::drawExtractionImage(const QVector<MINUTIA> &minutiae)
+{
+    cv::Mat eimg = this->input.one.imgOriginal.clone();
+    cv::cvtColor(eimg,eimg,cv::COLOR_GRAY2BGR);
+    int radius = 7;
+    int radius2 = 10;
+    cv::Scalar color;
+    for(const MINUTIA& m : minutiae){
+        if(m.type == 0){ // endpoint
+            color = cv::Scalar(0,255,0); // green
+        }
+        else{ // bifurcation
+            color = cv::Scalar(0,0,255); // red
+        }
+        cv::circle(eimg,cv::Point(m.xy.x(),m.xy.y()),radius,color);
+        if(!isnan(m.angle)){
+            cv::line(
+                        eimg,
+                        cv::Point(m.xy.x(),m.xy.y()),
+                        cv::Point(m.xy.x() + radius2*sin(m.angle+M_PI_2), m.xy.y() + radius2*cos(m.angle+M_PI_2)),
+                        color);
+        }
+    }
+    return eimg;
+}
+
 int Extraction::setExtractionParams(CAFFE_FILES extractionFiles, int extractionBlockSize)
 {
     if (this->extractionIsRunning) {
@@ -249,10 +275,14 @@ void Extraction::startExtraction(const PREPROCESSING_RESULTS &input)
         this->durations.isoConverter += this->timer.elapsed();
     }
 
+    // DRAW EXTRACTION IMAGE
+    cv::Mat extractionImage = this->drawExtractionImage(this->results.minutiaePredicted);
+
     // IF WE HAVE ONLY ONE INPUT
     if (!this->input.isSequence) {
 
         //SIGNALS
+        emit extractionDoneSignal(extractionImage);
         emit extractionDoneSignal(this->results);
         if (this->extractionFeatures.useOrientationFixer) emit extractionDoneSignal(this->results.minutiaePredictedFixed);
         else emit extractionDoneSignal(this->results.minutiaePredicted);
@@ -284,7 +314,7 @@ void Extraction::startExtraction(const PREPROCESSING_RESULTS &input)
 
             this->cleanSequenceResults();
         }
-        // ELSE STRAT EXTRACT THE NEXT INPUT
+        // ELSE START EXTRACT THE NEXT INPUT
         else {
             this->startExtraction(this->input.sequence.value(this->input.keys[++this->input.cnt]));
         }

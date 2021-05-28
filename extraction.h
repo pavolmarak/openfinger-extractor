@@ -78,11 +78,13 @@ private:
     void cleanResults();
     void cleanSequenceResults();
     void cleanDurations();
+    cv::Mat drawExtractionImage(const QVector<MINUTIA>& minutiae);
 
 private slots:
     void extractionError(int errorCode);
 
 signals:
+    void extractionDoneSignal(cv::Mat extractionImage);
     void extractionDoneSignal(EXTRACTION_RESULTS results);
     void extractionDoneSignal(QVector<MINUTIA> minutiae);
     void extractionDoneSignal(unsigned char * minutiaeISO);
